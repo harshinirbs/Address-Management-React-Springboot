@@ -45,7 +45,7 @@ public class AddressController {
   @PutMapping("{id}")
   public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody Address addressDetails) {
     Address updateAddress = addressRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Address does not exist with id: " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Address id " +id+ " does not exist"));
     updateAddress.setAddress1(addressDetails.getAddress1());
     updateAddress.setAddress2(addressDetails.getAddress2());
     updateAddress.setCountry(addressDetails.getCountry());
@@ -57,7 +57,7 @@ public class AddressController {
   @DeleteMapping("{id}")
   public ResponseEntity<HttpStatus> deleteAddress(@PathVariable Long id){
     Address address = addressRepository.findById(id)
-    .orElseThrow(() -> new ResourceNotFoundException("Address does not exist with id: " + id));
+    .orElseThrow(() -> new ResourceNotFoundException("Address id " +id+ " does not exist"));
     addressRepository.delete(address);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
